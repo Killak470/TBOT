@@ -1,0 +1,3 @@
+com/tradingbot/backend/controller/MarketDataControllerIntegrationTest.class
+com/tradingbot/backend/service/MexcApiClientServiceTest.class
+com/tradingbot/backend/RiskLevelParsingTest.class

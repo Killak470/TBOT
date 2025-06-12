@@ -30,6 +30,9 @@ public class OpenAIProvider implements AIProvider {
     @Value("${ai.openai.model:gpt-4o}")
     private String model;
 
+    @Value("${ai.openai.max.retries:3}")
+    private int maxRetries;
+
     @Autowired
     public OpenAIProvider(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
@@ -41,6 +44,11 @@ public class OpenAIProvider implements AIProvider {
     @Override
     public String getProviderName() {
         return "OPENAI";
+    }
+
+    @Override
+    public int getMaxRetries() {
+        return maxRetries;
     }
 
     @Override

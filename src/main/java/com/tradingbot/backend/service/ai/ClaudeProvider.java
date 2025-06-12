@@ -30,6 +30,9 @@ public class ClaudeProvider implements AIProvider {
     @Value("${ai.claude.model:claude-3-opus-20240229}")
     private String model;
 
+    @Value("${ai.claude.max.retries:3}")
+    private int maxRetries;
+
     @Autowired
     public ClaudeProvider(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
@@ -41,6 +44,11 @@ public class ClaudeProvider implements AIProvider {
     @Override
     public String getProviderName() {
         return "CLAUDE";
+    }
+
+    @Override
+    public int getMaxRetries() {
+        return maxRetries;
     }
 
     @Override

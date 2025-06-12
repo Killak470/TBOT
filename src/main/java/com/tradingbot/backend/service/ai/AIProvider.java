@@ -30,4 +30,10 @@ public interface AIProvider {
      */
     String executeChatCompletion(String systemPrompt, String userPrompt, int maxTokens, double temperature)
             throws IOException, InterruptedException, HttpClientErrorException;
+
+    /**
+     * Gets the maximum number of retries for this provider.
+     * @return The maximum number of retries.
+     */
+    int getMaxRetries();
 } 
