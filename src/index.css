@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom retro gaming styles */
+@layer base {
+  body {
+    @apply bg-retro-black text-retro-green font-vt323;
+  }
+}
+
+@layer components {
+  .retro-container {
+    @apply border-3 border-retro-green bg-retro-dark p-4 shadow-retro;
+  }
+  
+  .retro-button {
+    @apply bg-retro-dark text-retro-green border-2 border-retro-green px-4 py-2 
+           hover:bg-retro-green hover:text-retro-black transition-colors duration-200
+           focus:outline-none focus:ring-2 focus:ring-retro-green;
+  }
+  
+  .retro-input {
+    @apply bg-retro-dark text-retro-green border-2 border-retro-green px-3 py-2
+           focus:outline-none focus:ring-2 focus:ring-retro-green focus:border-transparent;
+  }
+  
+  .retro-header {
+    @apply font-press-start text-retro-green text-xl mb-4;
+  }
+  
+  .retro-card {
+    @apply border-2 border-retro-green bg-retro-dark p-4 hover:shadow-retro-glow transition-shadow duration-300;
+  }
+  
+  .retro-terminal {
+    @apply font-vt323 bg-retro-black text-retro-green p-4 border-2 border-retro-green overflow-auto;
+  }
+  
+  .retro-tab {
+    @apply px-4 py-2 border-t-2 border-l-2 border-r-2 border-retro-green;
+  }
+  
+  .retro-tab-active {
+    @apply bg-retro-green text-retro-black;
+  }
+  
+  .retro-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
+  }
+  
+  .retro-cursor {
+    @apply animate-blink;
+  }
+}
+
+/* Animation for loading states */
+@keyframes scanline {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.scanline {
+  animation: scanline 2s linear infinite;
+}
+
+/* CRT screen effect */
+.crt-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.crt-effect::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Pixel font imports */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Pixelify+Sans&display=swap');

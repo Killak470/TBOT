@@ -1,0 +1,23 @@
+{
+  "scanResults": [
+    {
+      "symbol": "ETH_USDT",
+      "signal": "BUY",
+      "price": 3500.0,
+      "marketType": "futures",
+      "recommendedLeverage": 3,
+      "indicators": {
+        "RSI": {
+          "name": "RSI",
+          "value": 65.5,
+          "signal": "BUY"
+        },
+        "MACD": {
+          "name": "MACD",
+          "value": 25.3,
+          "signal": "BUY"
+        }
+      }
+    }
+  ]
+} 

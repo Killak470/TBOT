@@ -1,0 +1,123 @@
+Project Architecture: Trading Bot Dashboard & Backend
+This project is a comprehensive cryptocurrency trading platform with a React frontend dashboard and a Spring Boot backend. It's designed to connect to cryptocurrency exchanges (primarily MEXC) to retrieve market data, visualize price movements, and potentially automate trading strategies.
+System Architecture
+The architecture follows a three-tier model:
+Frontend (Trading Bot Dashboard) - React-based UI built with modern web technologies
+Backend (Spring Boot) - Java-based server providing REST APIs and business logic
+External Services - MEXC cryptocurrency exchange accessed via REST APIs
+Frontend Components
+Core Structure
+React Application - Main SPA framework using modern React with hooks
+TypeScript/JavaScript - Used interchangeably with a gradual migration to TypeScript
+Tailwind CSS - For styling components with utility classes
+Dashboard Pages
+Dashboard.jsx/.tsx - Main overview showing portfolio value, recent trades, and key metrics
+Charts.jsx/.tsx - Advanced charts for technical analysis with multiple timeframes
+SimpleCharts.jsx/.tsx - Simplified charts for basic price visualization
+ActiveTrades.jsx/.tsx - Displays current open positions and their statuses
+PendingTrades.jsx/.tsx - Shows trade signals pending approval
+MarketNews.jsx/.tsx - Displays market news and Twitter sentiment
+BotControl.jsx/.tsx - Interface for managing trading bots and their parameters
+Settings.jsx/.tsx - Application configuration and user preferences
+Chart Components
+CandlestickChart.jsx/.tsx - Displays OHLC (Open-High-Low-Close) price data with volume
+LineChart.jsx/.tsx - Simple line charts for price trends and comparisons
+TradingChart.jsx/.tsx - Advanced chart with trades overlaid on price data
+TechnicalAnalysisChart.jsx/.tsx - Chart with technical indicators (moving averages, Bollinger Bands, etc.)
+API Services
+apiClient.js/.ts - Base Axios instance for making authenticated requests to the backend
+marketService.js/.ts - Handles market data fetching including symbols, prices, and candles
+tradingService.js/.ts - Manages trade operations and retrieves trading history
+botSettingsService.js/.ts - Configures trading bot parameters
+technicalAnalysisService.js/.ts - Retrieves technical indicators and signals
+Backend Components
+Java Structure
+Spring Boot Application - Main backend framework
+RESTful API Controllers - Handle HTTP requests and responses
+Service Layer - Business logic and external API integration
+Exception Handling - Robust error management
+Controllers
+MexcApiController - Direct interface for MEXC exchange API operations
+MexcProxyController - CORS proxy for frontend-to-MEXC communication
+HealthController - System health checks and diagnostics
+AuthController - User authentication and authorization
+PineScriptController - Handles TradingView Pine Script integration
+Services
+MexcApiService - Core service for interacting with MEXC exchange
+Various Trading Services - Implement trading strategies and execution
+Connection Flow
+User Interaction → Frontend Components:
+User interacts with React components (e.g., selecting a trading pair on a chart)
+Frontend Components → API Services:
+React components use service classes like marketService.js to request data
+API Services → Backend Controllers:
+Services make HTTP requests to backend endpoints via apiClient.js
+Example: /api/market/mexc/contract/klines for futures market data
+Backend Controllers → External APIs:
+Controllers like MexcProxyController forward requests to MEXC API
+Handles authentication, rate limiting, error handling
+External APIs → Backend Controllers:
+MEXC API responses are processed, transformed if needed
+Controllers format and return data to frontend
+Backend Controllers → API Services → Components:
+Data flows back through the chain
+Components update UI with received data
+Key Features
+Real-time Market Data:
+Support for both spot and futures/contract markets
+Multiple timeframes (1m, 5m, 15m, 30m, 1h, 4h, 1d, etc.)
+Symbol mapping between display formats and MEXC API requirements
+Advanced Charting:
+Interactive candlestick charts with customizable indicators
+Volume visualization
+Trade markers showing entry/exit points
+Trading Bot Integration:
+Configuration interface for algorithmic trading strategies
+Trade signal generation and manual approval workflow
+Performance tracking and analytics
+Portfolio Management:
+Account balance and asset allocation
+P&L tracking and visualization
+Trade history and reporting
+Specific Implementation Details
+Data Flow Example: Loading a Futures Chart
+User selects BTC/USDT futures on 1h timeframe in TradingChart component
+Component calls marketService.getContractKlines('BTC/USDT', '1h')
+marketService formats the request and calls /api/market/mexc/contract/klines endpoint
+Backend's MexcProxyController receives the request
+Controller formats symbol (BTCUSDT) and interval (Hour1) for MEXC API
+Request is sent to MEXC at https://contract.mexc.com/api/v1/contract/kline
+MEXC returns data in their specific format
+Backend extracts the actual data from the response and returns it
+Frontend transforms the data into the format needed by the charting library
+Chart is rendered with the received data
+Error Handling & Diagnostics
+Comprehensive error capture in both frontend and backend
+Detailed logging for troubleshooting
+Diagnostic endpoints to verify connectivity with MEXC API
+Testing tools (api-test-mexc.html) to verify endpoint functionality
+Integration Points
+MEXC API Integration:
+Both spot and futures markets
+Real-time market data
+Trading capabilities (market/limit orders)
+Authentication System:
+JWT-based authentication
+Token handling and refresh logic
+WebSocket Integration (mentioned in files):
+Real-time updates for price data and trade notifications
+Recent Fixes Implemented
+The main issue fixed recently involved the connection between the frontend and the backend's MEXC futures/contract API endpoint. Multiple problems were resolved:
+Endpoint Mapping Conflicts:
+Resolved ambiguous mappings between controllers
+Standardized URL patterns for consistency
+Symbol Formatting:
+Added proper handling for various symbol formats (BTC/USDT, BTC_USDT, BTCUSDT)
+Ensured compatibility with MEXC API requirements
+Response Parsing:
+Added proper structure parsing for MEXC's response format
+Improved error handling for API timeouts and failures
+Frontend Service Enhancement:
+Updated market services to properly format requests
+Added separate methods for spot and futures markets
+The system now properly handles data flow between all components, ensuring that cryptocurrency price data can be visualized in the dashboard's various chart components.
