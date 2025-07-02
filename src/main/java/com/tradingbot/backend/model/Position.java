@@ -115,6 +115,15 @@ public class Position {
     
     private Instant updateTime;
     
+    // Signal tracking fields for restart persistence
+    private Long originalSignalId;       // Links to BotSignal that created this position
+    private String orderLinkId;          // Precise tracking using signal's orderLinkId
+    private String signalSource;         // Track signal origin (MARKET_SCAN, AI_ANALYSIS, etc.)
+    private Boolean isScalpTrade;        // Differentiate scalp vs regular trades
+    private Boolean sltpApplied;         // Track if SL/TP has been applied
+    private Boolean trailingStopInitialized;  // Track trailing stop status
+    private LocalDateTime lastSltpCheck; // Timestamp of last SL/TP check
+    
     @PrePersist
     protected void onCreate() {
         updatedAt = LocalDateTime.now();
